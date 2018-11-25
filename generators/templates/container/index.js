@@ -4,17 +4,23 @@ import { connect } from 'react-redux';
 
 import { mapStateToProps, mapDispatchToProps } from './connectors';
 import {
-
+	Screen,
 } from '@components';
 
-function <%=moduleName%>(props) {
-	return (
+class <%=moduleName%> extends React.Component {
+	static propTypes = {
 
-	);
+	}
+
+	render() {
+		const {  } = this.props;
+
+		return (
+			<Screen>
+
+			</Screen>
+		);
+	}
 }
-
-<%=moduleName%>.propTypes = {
-
-};
 
 export default connect(mapStateToProps, mapDispatchToProps)(<%=moduleName%>);

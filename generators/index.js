@@ -1,36 +1,75 @@
 const Generator = require('yeoman-generator');
+const chalk = require('chalk');
+
+const templates = [
+	'component',
+	'container',
+	'reducer',
+	'action-async',
+	'action-sync',
+];
 
 class TVGGenerator extends Generator {
+	/*
+	*	Private methods
+	*/
+
+	_getTemplatePath({ templateName }) {
+		this.log(templateName, '!!!');
+		if (!templateName.includes('action')) {
+			return this.templatePath(templateName);
+		}
+		return `${this.templatePath('actions')}/${templateName}.js`;
+	}
+
+	_getDestinationPath({ context, moduleName, templateName }) {
+		const isDirectory = !templateName.includes('action');
+		const extension = isDirectory ? '' : '.js';
+		return `${context}/${moduleName}${extension}`
+	}
+
+	/*
+	*	Generator run loop steps
+	*/
+
 	initializing() {
-		this.log('\nBUTTS\n');
-		this.argument('templateName', {
+		// Allow user to pass templateName from command line
+		this.option('templateName', {
 			desc: 'The name of the template you are using',
 			type: String,
-			required: true,
+		});
+		// User can only pass parentName from command line
+		this.option('parentName', {
+			desc: 'The name of the parent into which you are creating a module',
+			type: String,
+			default: 'general',
+		});
+		// User can only pass context from command line
+		this.option('context', {
+			desc: 'The context/filepath into which the module will be generated',
+			type: String,
+		});
+		// Allow user to pass moduleName from command line
+		this.option('moduleName', {
+			desc: 'The name of the module you are creating',
+			type: String,
 		});
 	}
 
-	async prompting() {
-		const { templateName } = this.options;
-		this.userInput = await this.prompt([
-			{
-				type: 'input',
-				name: 'moduleName',
-				message: `Your ${templateName}'s name`,
-				required: true,
-			}
-		]);
-	}
-
 	writing() {
-		const { templateName } = this.options;
-		const { moduleName } = this.userInput;
+		const {
+			context,
+			moduleName,
+			parentName,
+			templateName,
+		} = this.options;
 		this.fs.copyTpl(
-			this.templatePath(templateName),
-			this.destinationPath(moduleName),
-			{ moduleName },
+			this._getTemplatePath({ templateName }),
+			this._getDestinationPath({ context, moduleName, templateName }),
+			{ moduleName, parentName },
 		);
 	}
+
 };
 
 module.exports = TVGGenerator;
