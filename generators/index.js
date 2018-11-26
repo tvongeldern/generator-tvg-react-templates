@@ -15,7 +15,6 @@ class TVGGenerator extends Generator {
 	*/
 
 	_getTemplatePath({ templateName }) {
-		this.log(templateName, '!!!');
 		if (!templateName.includes('action')) {
 			return this.templatePath(templateName);
 		}
