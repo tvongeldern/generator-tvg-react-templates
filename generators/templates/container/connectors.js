@@ -1,4 +1,4 @@
-import {} from '@state/actions';
+import {} from '@state';
 
 export function mapStateToProps(state) {
 	return {
