@@ -18,4 +18,5 @@ export const reducer = {
 
 export const actionCreator = () => ({
 	types: [types.start, types.success, types.fail],
+	promise: ({ fetch }) => fetch(),
 });
