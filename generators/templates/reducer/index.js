@@ -1,12 +1,15 @@
-import * as reducer from './actions/reducers';
+import { aggregateReducers } from 'utils';
+import * as reducers from './actions/reducers';
 
 const initialState = {
 
 };
 
+const aggregatedReducer = aggregateReducers(reducers);
+
 export function reducer(state = initialState, action = {}) {
-	if (reducer[action.type]) {
-		return reducer[action.type](state, action);
+	if (aggregatedReducer[action.type]) {
+		return aggregatedReducer[action.type](state, action);
 	}
 	return state;
 }
