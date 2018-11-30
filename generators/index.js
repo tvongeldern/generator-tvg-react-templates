@@ -16,13 +16,14 @@ class TVGGenerator extends Generator {
 	*/
 
 	_getTemplatePath({ templateName }) {
-		if (!templateName.includes('action')) {
-			return this.templatePath(templateName);
-		}
 		if (templateName === 'form') {
 			return `${this.templatePath('forms')}/${templateName}.js`;
 		}
-		return `${this.templatePath('actions')}/${templateName}.js`;
+		if (templateName.includes('action')) {
+			
+			return `${this.templatePath('actions')}/${templateName}.js`;
+		}
+		return this.templatePath(templateName);
 	}
 
 	_getDestinationPath({ context, moduleName, templateName }) {
