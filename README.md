@@ -22,7 +22,7 @@ yo tvg-react-components templateName=component moduleName=MyContainer context=./
 
 ## Options
 ***context** This is the destination filepath where your new module will be created.
-**templateName** This is the name of the template you want to use. Options are `container`, `component`, `reducer`, `action-async`, and `action-sync`.
+**templateName** This is the name of the template you want to use. Options are `container`, `component`, `reducer`, `form`, `action-async`, and `action-sync`.
 **moduleName** This is the name of the module you are creating. For example, if you are creating a `container` called `ProfilePage`, you would run command:
 ```
 yo tvg-react-components templateName=container moduleName=ProfilePage context=./src/containers

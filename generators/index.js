@@ -4,6 +4,7 @@ const chalk = require('chalk');
 const templates = [
 	'component',
 	'container',
+	'form',
 	'reducer',
 	'action-async',
 	'action-sync',
@@ -18,11 +19,14 @@ class TVGGenerator extends Generator {
 		if (!templateName.includes('action')) {
 			return this.templatePath(templateName);
 		}
+		if (templateName === 'form') {
+			return `${this.templatePath('forms')}/${templateName}.js`;
+		}
 		return `${this.templatePath('actions')}/${templateName}.js`;
 	}
 
 	_getDestinationPath({ context, moduleName, templateName }) {
-		const isDirectory = !templateName.includes('action');
+		const isDirectory = !templateName.includes('action') && templateName !== 'form';
 		const extension = isDirectory ? '' : '.js';
 		return `${context}/${moduleName}${extension}`
 	}
